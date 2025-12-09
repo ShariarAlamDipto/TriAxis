@@ -3,16 +3,5 @@
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "@supabase_url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase_anon_key",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
-    "BKASH_APP_KEY": "@bkash_app_key",
-    "BKASH_APP_SECRET": "@bkash_app_secret",
-    "BKASH_USERNAME": "@bkash_username",
-    "BKASH_PASSWORD": "@bkash_password",
-    "BKASH_BASE_URL": "https://tokenized.pay.bka.sh/v1.2.0-beta",
-    "NEXT_PUBLIC_SITE_URL": "@site_url"
-  }
+  "framework": "nextjs"
 }
