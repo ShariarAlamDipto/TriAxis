@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .text-xs, .text-sm {
+    font-weight: 500;
+  }
+}
+
 /* Fallback for no theme attribute - Defined FIRST so it can be overridden */
 :root {
   --brand-orange: #E4602A;
