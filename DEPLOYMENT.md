@@ -9,6 +9,85 @@
 
 ## Step 1: Set Up Supabase
 
+### 1. Create a Project
+- Go to Supabase Dashboard
+- Click "New Project"
+- Enter project name (e.g., "TriAxis")
+- Set database password (save this!)
+- Choose a region close to your users (e.g., Singapore/Mumbai)
+
+### 2. Database Setup
+- Go to SQL Editor in the sidebar
+- Copy the contents of `supabase/migrations/001_initial_schema.sql`
+- Run the query
+- Repeat for all migration files in order (002, 003, etc.)
+- **Important**: Run `008_storage_policies.sql` last to secure your files.
+
+### 3. Storage Setup
+- The migration scripts should handle this, but verify:
+- Go to Storage
+- Check for 'papers' and 'covers' buckets
+- Verify policies are set (Public for Select, Admin for Insert/Update/Delete)
+
+## Step 2: Vercel Deployment
+
+### 1. Import Project
+- Go to Vercel Dashboard
+- Click "Add New..." -> "Project"
+- Import from GitHub
+- Select the `TriAxis` repository
+
+### 2. Environment Variables
+Add the following variables in the Vercel project settings:
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Found in Supabase Settings -> API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Found in Supabase Settings -> API |
+| `SUPABASE_SERVICE_ROLE_KEY` | Found in Supabase Settings -> API (Keep Secret!) |
+| `MASTER_ADMIN_EMAIL` | Your email address for admin access |
+| `BKASH_APP_KEY` | From bKash Merchant Panel |
+| `BKASH_APP_SECRET` | From bKash Merchant Panel |
+| `BKASH_USERNAME` | From bKash Merchant Panel |
+| `BKASH_PASSWORD` | From bKash Merchant Panel |
+| `BKASH_BASE_URL` | `https://tokenized.pay.bka.sh/v1.2.0-beta` (Sandbox) or Production URL |
+| `NEXT_PUBLIC_SITE_URL` | Your Vercel domain (e.g. https://triaxis.vercel.app) |
+
+### 3. Deploy
+- Click "Deploy"
+- Wait for the build to complete
+- Visit your new URL!
+
+## Step 3: Post-Deployment
+
+### 1. Configure Auth Redirects
+- Go to Supabase Dashboard -> Authentication -> URL Configuration
+- Add your Vercel URL to "Site URL"
+- Add `https://your-project.vercel.app/**` to "Redirect URLs"
+
+### 2. Verify Admin Access
+- Sign up on your new site with the email used in `MASTER_ADMIN_EMAIL`
+- You should automatically get Admin access
+- Visit `/admin` to verify
+
+### 3. Test Payments
+- Use bKash Sandbox credentials to test the checkout flow
+- Verify orders appear in the Admin panel
+
+## Troubleshooting
+
+### "Orders not showing"
+- Ensure you ran `007_consolidated_fix.sql`
+- Check Foreign Key relationships in Supabase
+
+### "Permission denied" on Storage
+- Ensure you ran `008_storage_policies.sql`
+- Check RLS policies in Storage -> Policies
+
+### Build Errors
+- Check Vercel logs
+- Ensure all Environment Variables are set correctly
+
 ### 1.1 Create a New Project
 
 1. Go to [Supabase Dashboard](https://app.supabase.com)
